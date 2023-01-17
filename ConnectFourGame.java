@@ -18,10 +18,10 @@ public class ConnectFourGame implements ConnectFourRules
     int roundNo = 1;
     while (winner == false){
       
-      //int computerPos = computerMove();
-      //if(computerPos == -1){
-        int computerPos = (genValue())-1;
-      //}
+      int computerPos = computerMove();
+      if(computerPos == -1){
+        computerPos = (genValue())-1;
+      }
       myBoard.place(false,computerPos);
       System.out.println("Round #"+roundNo+"\n\nComputer = o\t\tUser = x\n\n"+myBoard);
 
@@ -43,14 +43,15 @@ public class ConnectFourGame implements ConnectFourRules
     int move = -1;
     for(int i = 0; i < myBoard.boardLength(); i++){
         for(int j = 1; j < myBoard.boardWidth(); j++){
-            if(myBoard.getBoard()[j][i] == "x" && myBoard.getBoard()[j+1][i] == "x" && myBoard.getBoard()[j+2][i] == "x" && myBoard.getBoard()[j+3][i] != "o"){
+            if(j+3 < myBoard.boardWidth() && myBoard.getBoard()[j][i] == "x" && myBoard.getBoard()[j+1][i] == "x" && myBoard.getBoard()[j+2][i] == "x" && myBoard.getBoard()[j+3][i] != "o"){
                 move = i;
                 return move;
             }
         }
     }
     return move;
-}
+  }
+
   public int genValue(){
     return (int)(1+ (myBoard.boardLength()-1) * Math.random());
   }
