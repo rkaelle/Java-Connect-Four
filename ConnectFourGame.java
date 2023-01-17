@@ -43,14 +43,24 @@ public class ConnectFourGame implements ConnectFourRules
     int move = -1;
     for(int i = 0; i < myBoard.boardLength(); i++){
         for(int j = 1; j < myBoard.boardWidth(); j++){
-            if(j+3 < myBoard.boardWidth() && myBoard.getBoard()[j][i] == "x" && myBoard.getBoard()[j+1][i] == "x" && myBoard.getBoard()[j+2][i] == "x" && myBoard.getBoard()[j+3][i] != "o"){
+            if(j+3 < myBoard.boardWidth() && myBoard.getBoard()[j][i] == "O" && myBoard.getBoard()[j+1][i] == "O" && myBoard.getBoard()[j+2][i] == "O" && myBoard.getBoard()[j+3][i] == "_") {
+                move = i;
+                return move;
+            }
+        }
+    }
+    for(int i = 0; i < myBoard.boardLength(); i++){
+        for(int j = 1; j < myBoard.boardWidth(); j++){
+            if(j+3 < myBoard.boardWidth() && myBoard.getBoard()[j][i] == "X" && myBoard.getBoard()[j+1][i] == "X" && myBoard.getBoard()[j+2][i] == "X" && myBoard.getBoard()[j+3][i] == "_") {
                 move = i;
                 return move;
             }
         }
     }
     return move;
-  }
+}
+
+
 
   public int genValue(){
     return (int)(1+ (myBoard.boardLength()-1) * Math.random());
