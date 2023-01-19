@@ -1,46 +1,80 @@
 import java.util.*;
 
+// ConnectFourGame class implements the ConnectFourRules interface
 public class ConnectFourGame implements ConnectFourRules
-{   //Instance Data
+{   
+    //Instance Data
     Board myBoard;
+    // constructor that creates the game board
     public ConnectFourGame(){
         myBoard = new Board(8,6);
     }
-  //play the game here
-    public int checkVertical(){return -1;};
-    public int checkHorizontal(){return -1;};
-    public int checkDIAGdown(){return -1;};
-    public int checkDIAGup(){return -1;};
-  
-  public void play(){
-    boolean winner = false;
-    System.out.println("Lets begin...\n\n");
-    int roundNo = 1;
-    while (winner == false){
-      
-      int computerPos = computerMove();
-      if(computerPos == -1){
-        computerPos = (genValue())-1;
-      }
-      myBoard.place(false,computerPos);
-      System.out.println("Round #"+roundNo+"\n\nComputer = o\t\tUser = x\n\n"+myBoard);
 
-      Scanner userPlace = new Scanner(System.in);
-      System.out.print("Enter which column you would like to place your piece: ");
-      int userPos = userPlace.nextInt()-1;
-      myBoard.place(true,userPos);
-      if(checkWin() == true){
-        winner = true;
-        System.out.println("Winner!!");
-      }
+    //methods for checking for wins that return -1
+    public int checkVertical(){return -1;}
+    public int checkHorizontal(){return -1;}
+    public int checkDIAGdown(){return -1;}
+    public int checkDIAGup(){return -1;}
+  
+    // main method to run the game
+    public void play(){
+        boolean winner = false;
+        System.out.println("Lets begin...\n\n");
+        int roundNo = 1;
+        // loop to keep game running until a winner is found
+        while (winner == false){
+          
+            // computer move
+            int computerPos = computerMove();
+            // if computerMove returns -1, then generate a random move
+            if(computerPos == -1){
+                computerPos = (genValue())-1;
+            }
+            // place the computer's move on the board
+            myBoard.place(false,computerPos);
+            // print the current round and the current game board
+            System.out.println("Round #"+roundNo+"\n\nComputer = o\t\tUser = x\n\n"+myBoard);
+
+            // get user's move
+            Scanner userPlace = new Scanner(System.in);
+            System.out.print("Enter which column you would like to place your piece: ");
+            int userPos = userPlace.nextInt()-1;
+            // place user's move on the board
+            myBoard.place(true,userPos);
+            // check if there is a winner, if true, set winner to true
+            if(checkWin() == true){
+                winner = true;
+                System.out.println("Winner!!");
+            }
       
-      System.out.println("Computer = o\t\tUser = x\n"+myBoard+"\n__________________________________________________\n");
-      roundNo++;
+            // print the current game board
+            System.out.println("Computer = o\t\tUser = x\n"+myBoard+"\n__________________________________________________\n");
+            // increment round number
+            roundNo++;
+        }
     }
-  }
+
+    // method to determine the computer's move
+    private int computerMove(){
+        int move = -1;
+        // check for three in a row horizontally for computer
+        for(int i = 0; i < myBoard.boardLength(); i++){
+            for(int j = 1; j < myBoard.boardWidth(); j++){
+                if(j+3 < myBoard.boardWidth() && myBoard.getBoard()[j][i] == "O" && myBoard.getBoard()[j+1][i] == "O" && myBoard.getBoard()[j+2][i] == "O" && myBoard.getBoard()[j+3][i] == "_") {
+                    move = i;
+                    return move;
+                }
+            }
+        }
+        // check for three in a row horizontally for user
+        for(int i = 0; i < myBoard.boardLength(); i++){
+            for(int j = 1; j < myBoard.boardWidth(); j++){
+                if
+
 
   private int computerMove(){
     int move = -1;
+   // check for three in a row horizontally for computer
     for(int i = 0; i < myBoard.boardLength(); i++){
         for(int j = 1; j < myBoard.boardWidth(); j++){
             if(j+3 < myBoard.boardWidth() && myBoard.getBoard()[j][i] == "O" && myBoard.getBoard()[j+1][i] == "O" && myBoard.getBoard()[j+2][i] == "O" && myBoard.getBoard()[j+3][i] == "_") {
@@ -49,6 +83,7 @@ public class ConnectFourGame implements ConnectFourRules
             }
         }
     }
+ // check for three in a row horizontally for user
     for(int i = 0; i < myBoard.boardLength(); i++){
         for(int j = 1; j < myBoard.boardWidth(); j++){
             if(j+3 < myBoard.boardWidth() && myBoard.getBoard()[j][i] == "X" && myBoard.getBoard()[j+1][i] == "X" && myBoard.getBoard()[j+2][i] == "X" && myBoard.getBoard()[j+3][i] == "_") {
