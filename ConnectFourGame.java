@@ -28,7 +28,7 @@ public class ConnectFourGame implements ConnectFourRules
             int computerPos = computerMove();
             // if computerMove returns -1, then generate a random move
             if(computerPos == -1){
-                computerPos = (genValue())-1;
+                computerPos = (genValue());
             }
             // place the computer's move on the board
             myBoard.place(false,computerPos);
@@ -43,35 +43,21 @@ public class ConnectFourGame implements ConnectFourRules
             myBoard.place(true,userPos);
             // check if there is a winner, if true, set winner to true
             if(checkWin() == true){
-                winner = true;
-                System.out.println("Winner!!");
+              System.out.println("Winner!!");  
+              winner = true;
+            } else{
+                clearScreen();
             }
-      
-            // print the current game board
-            System.out.println("Computer = o\t\tUser = x\n"+myBoard+"\n__________________________________________________\n");
+
             // increment round number
             roundNo++;
         }
     }
-
-    // method to determine the computer's move
-    private int computerMove(){
-        int move = -1;
-        // check for three in a row horizontally for computer
-        for(int i = 0; i < myBoard.boardLength(); i++){
-            for(int j = 1; j < myBoard.boardWidth(); j++){
-                if(j+3 < myBoard.boardWidth() && myBoard.getBoard()[j][i] == "O" && myBoard.getBoard()[j+1][i] == "O" && myBoard.getBoard()[j+2][i] == "O" && myBoard.getBoard()[j+3][i] == "_") {
-                    move = i;
-                    return move;
-                }
-            }
-        }
-        // check for three in a row horizontally for user
-        for(int i = 0; i < myBoard.boardLength(); i++){
-            for(int j = 1; j < myBoard.boardWidth(); j++){
-                if
-
-
+  public static void clearScreen() {  
+    System.out.print("\033[H\033[2J");  
+    System.out.flush();  
+   }
+//method to return the computers next move
   private int computerMove(){
     int move = -1;
    // check for three in a row horizontally for computer
@@ -152,5 +138,4 @@ public class ConnectFourGame implements ConnectFourRules
       return false;
     }
   }
-
 }
